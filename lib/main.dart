@@ -104,9 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body:
-       SafeArea(
-        child: SingleChildScrollView(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Center(
             child: ConstrainedBox(
@@ -148,85 +147,78 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 20),
+                  const SizedBox(height: 20),
 
                   SizedBox(
                     height: 80,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                        textStyle: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                        foregroundColor: Colors.black),
                       onPressed: () {
                         setState(() {
                           oneRepMaxString = _poop();
                         });
-                        
                       },
-                      child: const Text(
-                        "Berechnen",
-                        style: TextStyle(fontSize: 28),
-                      ),
+                      child: const Text("Berechnen"),
                     ),
                   ),
 
                   const SizedBox(height: 40),
 
-                  Table(
-                    border: TableBorder.all(),
-                    columnWidths: const {
-                      0: FlexColumnWidth(),
-                      1: FlexColumnWidth(),
-                    },
-                    children: [
-                      const TableRow(
+                  /// SCROLLABLE TABLE
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Table(
+                        border: TableBorder.all(),
+                        columnWidths: const {
+                          0: FlexColumnWidth(),
+                          1: FlexColumnWidth(),
+                        },
                         children: [
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Weight",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                            ),
+                          const TableRow(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                  "Weight",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                  "Reps",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                                ),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "Reps",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+
+                          ...items.entries.map(
+                            (entry) => TableRow(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    entry.key.toStringAsFixed(1),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    entry.value.toStringAsFixed(0),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-
-                      ...items.entries.map(
-                        (entry) => TableRow(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                entry.key.toStringAsFixed(1),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                entry.value.toStringAsFixed(0),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
