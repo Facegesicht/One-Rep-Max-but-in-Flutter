@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:number_editing_controller/number_editing_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: const MyHomePage(title: 'mario is a fucking racist, he is a racist bitch, h'),
+      title: "test",
+    theme: ThemeData(
+    // Define the default brightness and colors.
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      // ···
+      brightness: Brightness.dark,
+    ),
+
+    // Define the default `TextTheme`. Use this to specify the default
+    // text styling for headlines, titles, bodies of text, and more.
+    textTheme: TextTheme(
+      displayLarge: const TextStyle(
+        fontSize: 72,
+      ),
+      // ···
+      titleLarge: GoogleFonts.inter(
+        fontSize: 30,
+      ),
+      bodyMedium: GoogleFonts.inter(),
+      displaySmall: GoogleFonts.inter(),
+    ),
+  ),
+  home: const MyHomePage(title: "gaga warum ist das in italic, so fancy"),
     );
   }
 }
@@ -33,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final getWeight = NumberEditingTextController.decimal();
   final getReps = NumberEditingTextController.integer();
-  String oneRepMaxString = "big poop and piss hihi";
+  String oneRepMaxString = "poop";
   Map<double,double> items = {};
 
   String _poop()
@@ -43,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (getWeight.text.isEmpty || getReps.text.isEmpty)
     {
-      return "mindestesns eisn der felder ist leer du racist";
+      return "leeres feld (dumm)";
     }
     if(num.tryParse(getWeight.text) == null || num.tryParse(getReps.text) == null)
     {
@@ -55,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if(oneRepMaxBigFinal < 0)
     {
-      return "hier kam ein poopy wert raus hihi (die formel ist ein bisschen dumm und ich glaub ab über 13 wiederholunge fängt es an ungenau zu werden)";
+      return "error (reps zu hoch)";
     }
 
     if (reps == 0)
     {
-      return "angeblich ist dein one rep max $onreRepMaxFixedString 🤨";
+      return "$onreRepMaxFixedString 🤨";
     }
     _poops(oneRepMaxBigFinal, reps);
     return onreRepMaxFixedString;
@@ -68,10 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _poops(double oneRepMax, double reps)
   {
-    for (var i = reps - 1; i >= 0; i--)
+    for (var i = 14; i >= 0; i--)
     {
-      var gewicht  = oneRepMax / (36.0 / (37.0 - (reps - i)));
-      items[gewicht] = (reps - i).toDouble();
+      var gewicht  = oneRepMax / (36.0 / (37.0 - (15 - i)));
+      items[gewicht] = (15 - i).toDouble();
     }
   }
 
@@ -126,15 +148,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(
+                    height: 20),
 
                   SizedBox(
                     height: 80,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        textStyle: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                        foregroundColor: Colors.black),
                       onPressed: () {
                         setState(() {
                           oneRepMaxString = _poop();
                         });
+                        
                       },
                       child: const Text(
                         "Berechnen",
@@ -187,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Padding(
                               padding: const EdgeInsets.all(8),
                               child: Text(
-                                entry.value.toString(),
+                                entry.value.toStringAsFixed(0),
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(fontSize: 24),
                               ),
