@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       displaySmall: GoogleFonts.inter(),
     ),
   ),
-  home: const MyHomePage(title: "gaga warum ist das in italic, so fancy"),
+  home: const MyHomePage(title: "mario ist strong"),
     );
   }
 }
@@ -152,10 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     height: 80,
                     child: ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        textStyle: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                        foregroundColor: Colors.black),
                       onPressed: () {
                         setState(() {
                           oneRepMaxString = _poop();
                         });
+                        FocusScope.of(context).unfocus();
                       },
                       child: const Text("Berechnen"),
                     ),
