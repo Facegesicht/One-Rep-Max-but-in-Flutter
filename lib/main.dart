@@ -153,12 +153,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 80,
                     child: ElevatedButton(
                        style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
+                        backgroundColor: Colors.blue[400],
                         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                         textStyle: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
-                        foregroundColor: Colors.black),
+                        foregroundColor: Colors.black87),
                       onPressed: () {
                         setState(() {
                           oneRepMaxString = _poop();
