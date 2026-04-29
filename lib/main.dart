@@ -56,20 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
   final getWeight = NumberEditingTextController.decimal();
   final getReps = NumberEditingTextController.integer();
   String oneRepMaxString = "One rep max";
+  String warningText = "";
   Map<double,double> items = {};
 
-  String _poop()
+  List<String> _getORMCalculation()
   {
     items.clear();
     var reps = (getReps.number ?? 0).toDouble();
 
     if (getWeight.text.isEmpty || getReps.text.isEmpty)
     {
-      return "Atleast one field is empty";
+      return ["", "Atleast one field is empty"];
     }
     if(num.tryParse(getWeight.text) == null || num.tryParse(getReps.text) == null)
     {
-      return "User numbers";
+      return ["", "User numbers"];
     }
     
     var oneRepMaxBigFinal = ((getWeight.number ?? 0) * (36.0 / (37.0 - reps)));
@@ -77,18 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if(oneRepMaxBigFinal < 0)
     {
-      return "Error - Reps too high";
+      return ["", "Error - Reps too high"];
     }
 
     if (reps == 0)
     {
-      return "$onreRepMaxFixedString 🤨";
+      return ["$onreRepMaxFixedString 🤨", "0 Reps kinda does not work"];
     }
-    _poops(oneRepMaxBigFinal, reps);
-    return onreRepMaxFixedString;
+    _getMoreCalculations(oneRepMaxBigFinal, reps);
+    return [onreRepMaxFixedString, ""];
   }
 
-  void _poops(double oneRepMax, double reps)
+  void _getMoreCalculations(double oneRepMax, double reps)
   {
     for (var i = 14; i >= 0; i--)
     {
@@ -121,7 +122,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(fontSize: 48),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
+                  
+                  Text(
+                    warningText,
+                    key: const Key("warningText"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 10),
 
                   TextField(
                     controller: getWeight,
@@ -161,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         foregroundColor: Colors.black87),
                       onPressed: () {
                         setState(() {
-                          oneRepMaxString = _poop();
+                          oneRepMaxString = _getORMCalculation()[0];
+                          warningText = _getORMCalculation()[1];
                         });
                         FocusScope.of(context).unfocus();
                       },
