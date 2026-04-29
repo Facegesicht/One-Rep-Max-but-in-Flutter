@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(fontSize: 28),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Gewicht",
+                      hintText: "Weight",
                     ),
                   ),
 
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(fontSize: 28),
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Wiederholungen",
+                      hintText: "Reps",
                     ),
                   ),
 
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                         FocusScope.of(context).unfocus();
                       },
-                      child: const Text("Berechnen"),
+                      child: const Text("Calculate"),
                     ),
                   ),
 
