@@ -70,15 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     if(num.tryParse(getWeight.text) == null || num.tryParse(getReps.text) == null)
     {
-      return ["", "User numbers"];
+      return [oneRepMaxString, "User numbers"];
     }
     
     var oneRepMaxBigFinal = ((getWeight.number ?? 0) * (36.0 / (37.0 - reps)));
     var onreRepMaxFixedString = oneRepMaxBigFinal.toStringAsFixed(1);
+    oneRepMaxString = onreRepMaxFixedString;
 
     if(oneRepMaxBigFinal < 0)
     {
-      return ["", "Error - Reps too high"];
+      return [oneRepMaxString, "Error - Reps too high"];
     }
 
     if (reps == 0)
