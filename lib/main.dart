@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       displaySmall: GoogleFonts.inter(),
     ),
   ),
-  home: const MyHomePage(title: "mario ist strong"),
+  home: const MyHomePage(title: "One Rep Max Calculator"),
     );
   }
 }
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final getWeight = NumberEditingTextController.decimal();
   final getReps = NumberEditingTextController.integer();
-  String oneRepMaxString = "poop";
+  String oneRepMaxString = "One rep max";
   Map<double,double> items = {};
 
   String _poop()
@@ -65,11 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (getWeight.text.isEmpty || getReps.text.isEmpty)
     {
-      return "leeres feld (dumm)";
+      return "Atleast one field is empty";
     }
     if(num.tryParse(getWeight.text) == null || num.tryParse(getReps.text) == null)
     {
-      return "benutz zahlen pls";
+      return "User numbers";
     }
     
     var oneRepMaxBigFinal = ((getWeight.number ?? 0) * (36.0 / (37.0 - reps)));
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if(oneRepMaxBigFinal < 0)
     {
-      return "error (reps zu hoch)";
+      return "Error - Reps too high";
     }
 
     if (reps == 0)
@@ -174,12 +174,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   /// SCROLLABLE TABLE
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Table(
-                        border: TableBorder.all(),
-                        columnWidths: const {
-                          0: FlexColumnWidth(),
-                          1: FlexColumnWidth(),
-                        },
+                       child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 211, 210, 210),
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12), // smooth edges
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Table(
+                              border: TableBorder(
+                                horizontalInside: BorderSide(
+                                  color: const Color.fromARGB(255, 211, 210, 210),
+                                  width: 0.5,
+                                ),
+                                verticalInside: BorderSide(
+                                  color: const Color.fromARGB(255, 211, 210, 210),
+                                  width: 0.5,
+                                ),
+                              ),
+                              columnWidths: const {
+                                0: FlexColumnWidth(),
+                                1: FlexColumnWidth(),
+                              },
                         children: [
                           const TableRow(
                             children: [
@@ -227,6 +246,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
+                  ),
+                  ),
                   ),
                 ],
               ),
