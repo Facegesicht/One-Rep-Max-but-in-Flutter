@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     oneRepMaxString,
                     key: const Key("textKey"),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 48),
+                    style: const TextStyle(fontSize: 58),
                   ),
 
                   const SizedBox(height: 20),
@@ -162,12 +162,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     height: 80,
                     child: ElevatedButton(
-                       style: ElevatedButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         backgroundColor: Colors.blue[400],
                         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                         textStyle: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
                         foregroundColor: Colors.black87),
                       onPressed: () {
                         setState(() {
@@ -191,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: const Color.fromARGB(255, 211, 210, 210),
                               width: 0.5,
                             ),
-                            borderRadius: BorderRadius.circular(12), // smooth edges
+                            borderRadius: BorderRadius.circular(8), // smooth edges
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
