@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:number_editing_controller/number_editing_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -105,6 +107,19 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingsPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -269,6 +284,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       )
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Settings')),
+      body: 
+      Center(
+        child: Column(
+          children: [
+            Text('Settings Page'),
+            TextField(
+              textAlign: TextAlign.center,
+              ),
+            ElevatedButton(onPressed: (){
+              GetStorage box = GetStorage();
+              box.write("test", "test");
+            }, child: const Text("Save"))
+          ]
+        ),
+      ),
     );
   }
 }
