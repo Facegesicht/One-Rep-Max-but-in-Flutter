@@ -94,10 +94,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _getMoreCalculations(double oneRepMax, double reps)
   {
-    for (var i = 14; i >= 0; i--)
+    GetStorage box = new GetStorage();
+    int listCount = int.tryParse(box.read("listCount")) ?? 0;
+
+    for (var i = listCount; i >= 0; i--)
     {
-      var gewicht  = oneRepMax / (36.0 / (37.0 - (15 - i)));
-      items[gewicht] = (15 - i).toDouble();
+      var gewicht  = oneRepMax / (36.0 / (37.0 - (listCount - i)));
+      double reps = (listCount - i).toDouble();
+      if (reps > 0 && reps <= listCount)
+      {
+        items[gewicht] = reps;
+      }
     }
   }
 
@@ -289,6 +296,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class SettingsPage extends StatelessWidget {
+  final saveBodyWeight = NumberEditingTextController.decimal();
+  final saveListCount = NumberEditingTextController.integer();
+  String bodyWeight = "";
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -300,11 +311,36 @@ class SettingsPage extends StatelessWidget {
             Text('Settings Page'),
             TextField(
               textAlign: TextAlign.center,
+              controller: saveBodyWeight,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Bodyweight",
+                      )
+              ),
+              TextField(
+              textAlign: TextAlign.center,
+              controller: saveListCount,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "List count",
+                      )
               ),
             ElevatedButton(onPressed: (){
               GetStorage box = GetStorage();
-              box.write("test", "test");
-            }, child: const Text("Save"))
+              box.write("bodyWeight", saveBodyWeight.text);
+              box.write("listCount", saveListCount.text);
+            }, 
+            child: const Text("Save")),
+            Text('monkey among us'),
+            Text(
+              bodyWeight,
+              key: const Key("bodyWeight"),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 58),
+            ),
+            
           ]
         ),
       ),
