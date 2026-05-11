@@ -309,42 +309,68 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Settings')),
-      body: 
-      Center(
-        child: Column(
-          children: [
-            Text('Settings Page'),
-            TextField(
-              textAlign: TextAlign.center,
-              controller: saveBodyWeight,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Bodyweight",
-                      )
-              ),
-              TextField(
-              textAlign: TextAlign.center,
-              controller: saveListCount,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "List count",
-                      )
-              ),
-            ElevatedButton(onPressed: (){
-              GetStorage box = GetStorage();
-              if (saveBodyWeight.text != ""){
-                box.write("bodyWeight", saveBodyWeight.text);
-              }
-              if (saveListCount.text != ""){
-                box.write("listCount", saveListCount.text);
-              }
-            }, 
-            child: const Text("Save")),
-          ]
-        ),
-      ),
-    );
+       body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Weight and listing Settings',
+                  style: const TextStyle(fontSize: 20),
+                ),
+
+                const SizedBox(height: 5),
+
+                Text(
+                  'Change this value for adding your bodyweight to the calculation. '
+                  'It is used for bodyweight-focused movements like pull-ups or dips with extra weight.',
+                  style: const TextStyle(fontSize: 15),
+                ),
+
+                const SizedBox(height: 20),
+
+                TextField(
+                  textAlign: TextAlign.left,
+                  controller: saveBodyWeight,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Bodyweight",
+                          )
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  TextField(
+                  textAlign: TextAlign.left,
+                  controller: saveListCount,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "List count",
+                          )
+                  ),
+                  const SizedBox(height: 20),
+
+                ElevatedButton(onPressed: (){
+                  GetStorage box = GetStorage();
+                  if (saveBodyWeight.text != ""){
+                    box.write("bodyWeight", saveBodyWeight.text);
+                  }
+                  if (saveListCount.text != ""){
+                    box.write("listCount", saveListCount.text);
+                  }
+                }, 
+                child: const Text("Save")),
+              ],
+            )
+                
+              
+            ),
+          ),
+        )
+      );
   }
 }
