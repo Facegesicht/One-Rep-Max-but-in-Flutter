@@ -6,6 +6,11 @@ import 'package:get_storage/get_storage.dart';
 
 void main() async {
   await GetStorage.init();
+  GetStorage box = GetStorage();
+  if (box.read("listCount") == null)
+  {
+    box.write("listCount", "15");
+  }
   runApp(const MyApp());
 }
 
@@ -329,18 +334,14 @@ class SettingsPage extends StatelessWidget {
               ),
             ElevatedButton(onPressed: (){
               GetStorage box = GetStorage();
-              box.write("bodyWeight", saveBodyWeight.text);
-              box.write("listCount", saveListCount.text);
+              if (saveBodyWeight.text != ""){
+                box.write("bodyWeight", saveBodyWeight.text);
+              }
+              if (saveListCount.text != ""){
+                box.write("listCount", saveListCount.text);
+              }
             }, 
             child: const Text("Save")),
-            Text('monkey among us'),
-            Text(
-              bodyWeight,
-              key: const Key("bodyWeight"),
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 58),
-            ),
-            
           ]
         ),
       ),
