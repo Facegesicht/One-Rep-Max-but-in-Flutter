@@ -305,6 +305,30 @@ class SettingsPage extends StatelessWidget {
   final saveListCount = NumberEditingTextController.integer();
   String bodyWeight = "";
   
+  String _saveSettings()
+  {
+    String message = "Nothing changed";
+    GetStorage box = GetStorage();
+
+    if (saveBodyWeight.text != ""){
+      if (num.tryParse(saveBodyWeight.text) == null){
+        return "Failed: Use Numbers";
+      }
+      box.write("bodyWeight", saveBodyWeight.text);
+      message = "Saved!";
+    }
+
+    if (saveListCount.text != ""){
+      if (num.tryParse(saveListCount.text) == null){
+        return "Failed: Use Numbers";
+      }
+      box.write("listCount", saveListCount.text);
+      message = "Saved!";
+    }
+
+    return message;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -349,19 +373,22 @@ class SettingsPage extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: "List count",
+                          hintText: "Reps listed",
                           )
                   ),
                   const SizedBox(height: 20),
 
                 ElevatedButton(onPressed: (){
-                  GetStorage box = GetStorage();
-                  if (saveBodyWeight.text != ""){
-                    box.write("bodyWeight", saveBodyWeight.text);
+                  void showMySnackBar(String message) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(message),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
                   }
-                  if (saveListCount.text != ""){
-                    box.write("listCount", saveListCount.text);
-                  }
+                  showMySnackBar(_saveSettings());
+                  //ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }, 
                 child: const Text("Save")),
               ],
