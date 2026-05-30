@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String oneRepMaxString = "One rep max";
   String warningText = "";
   Map<double,double> items = {};
+  bool isChecked = false;
 
   List<String> _getORMCalculation()
   {
@@ -160,15 +161,33 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 10),
 
-                  TextField(
-                    controller: getWeight,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 28),
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Weight",
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: getWeight,
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 28),
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: "Weight",
+                          ),
+                        ),
+                      ),
+                      Transform.scale(
+                        scale: 1.5, // 1.0 = normal size
+                        child:
+                        Checkbox(
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value ?? false;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 10),
