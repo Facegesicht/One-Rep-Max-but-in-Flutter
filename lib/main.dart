@@ -80,8 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
     {
       return [oneRepMaxString, "User numbers"];
     }
+
+    var weight = getWeight.number;
+    if (isChecked == true){
+      GetStorage box = new GetStorage();
+      num bodyWeight = num.tryParse(box.read("bodyWeight")) ?? 0;
+      weight = (weight ?? 0) + bodyWeight;
+    }
     
-    var oneRepMaxBigFinal = ((getWeight.number ?? 0) * (36.0 / (37.0 - reps)));
+    var oneRepMaxBigFinal = ((weight ?? 0) * (36.0 / (37.0 - reps)));
     var onreRepMaxFixedString = oneRepMaxBigFinal.toStringAsFixed(1);
     oneRepMaxString = onreRepMaxFixedString;
 
@@ -160,11 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: const TextStyle(fontSize: 24),
                   ),
                   const SizedBox(height: 10),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
+                  TextField(
                           controller: getWeight,
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
@@ -174,7 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             hintText: "Weight",
                           ),
                         ),
-                      ),
+                  Row(
+                    children: [
                       Transform.scale(
                         scale: 1.5, // 1.0 = normal size
                         child:
@@ -185,6 +189,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               isChecked = value ?? false;
                             });
                           },
+                        ),
+                      ),
+                      Expanded(
+                        child: 
+                        Text(
+                          'Add Bodyweight',
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ),
                     ],
